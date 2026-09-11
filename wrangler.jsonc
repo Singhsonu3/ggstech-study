@@ -2,7 +2,5 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "ggstech-study",
   "compatibility_date": "2026-09-11",
-  "assets": {
-    "directory": "."
-  }
+  "assets": { "directory": "." }
 }

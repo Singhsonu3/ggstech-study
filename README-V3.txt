@@ -1,0 +1,1 @@
+Index flow: Choose Class -> Choose Subject -> Choose Chapter. Class 10 Science contains the existing 13 chapters and topic pages. Other subjects are prepared as Coming Next. Cloudflare Worker static assets config included.
