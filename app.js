@@ -67,3 +67,22 @@ document.querySelectorAll('[data-magnet]').forEach(v=>{const d=v.querySelector('
 document.querySelectorAll('[data-energy2]').forEach(v=>{const e=v.querySelector('[data-e]'),val=v.querySelector('[data-val]'),p=v.querySelector('[data-pyr]'),o=v.querySelector('[data-out]');const u=()=>{let x=+e.value;val.textContent=x;p.innerHTML=[x,x*.1,x*.01,x*.001].map((n,i)=>`<div style="width:${100-i*18}%">${Math.round(n)} units</div>`).join('');o.textContent='Illustrative 10% energy-transfer model across successive trophic levels.'};e.oninput=u;u()});
 document.querySelectorAll('[data-waste]').forEach(v=>{const o=v.querySelector('[data-out]'),m={banana:'Biodegradable — microorganisms can break it down.',paper:'Biodegradable under suitable conditions.',plastic:'Non-biodegradable in the chapter-level classification.',glass:'Non-biodegradable in the chapter-level classification.'};v.querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>o.textContent=m[b.dataset.item])});
 document.querySelectorAll('[data-ecosystem]').forEach(v=>{let seq=[],o=v.querySelector('[data-out]');v.querySelectorAll('[data-role]').forEach(b=>b.onclick=()=>{seq.push(b.textContent.trim());o.textContent=seq.join(' → ')})});
+
+
+/* GGSTech Study V4 interactions */
+document.addEventListener('DOMContentLoaded',()=>{
+ document.querySelectorAll('.v4deep').forEach(root=>{
+  const a=root.querySelector('[data-v4a]'), b=root.querySelector('[data-v4b]'), read=root.querySelector('.v4readout'), needle=root.querySelector('.v4needle');
+  const update=()=>{ if(!a)return; const av=+a.value,bv=b?+b.value:1; if(read)read.textContent=`Live value: ${av} | comparison: ${(av/bv).toFixed(2)}`; if(needle)needle.style.left=Math.max(0,Math.min(100,(av/14)*100))+'%'; };
+  if(a)a.addEventListener('input',update); if(b)b.addEventListener('input',update); update();
+  let score=0,done=0;
+  root.querySelectorAll('.v4quiz').forEach(q=>{
+    q.querySelectorAll('button').forEach(btn=>btn.addEventListener('click',()=>{
+      if(q.dataset.done)return;q.dataset.done='1';done++;
+      const ok=btn.dataset.ok==='1'; if(ok)score++;
+      q.querySelector('.v4feedback').textContent=(ok?'✓ Correct. ':'✗ Not quite. ')+q.dataset.explain;
+      root.querySelector('.v4score').textContent=`Score: ${score} / ${done}`;
+    }));
+  });
+ });
+});
